@@ -2,6 +2,8 @@ public class Main {
     public static void main(String[] args) {
         ListaSimples listaSimples = new ListaSimples(5);
 
+        System.out.println("Quantidade inicial: " + listaSimples.contar());
+
         listaSimples.adicionarElemento("Arroz");
         listaSimples.adicionarElemento("Feijão");
         listaSimples.adicionarElemento("Sabão em Pó");
@@ -11,5 +13,10 @@ public class Main {
         listaSimples.removerElemento("Óleo");
         listaSimples.buscarElemento("Óleo");
         listaSimples.exibirElementos();
+
+        System.out.println("Quantidade após adicionar: " + listaSimples.contar());
+
+        listaSimples.removerElemento("Feijão");
+        System.out.println("Quantidade após remover: " + listaSimples.contar());
     }
 }

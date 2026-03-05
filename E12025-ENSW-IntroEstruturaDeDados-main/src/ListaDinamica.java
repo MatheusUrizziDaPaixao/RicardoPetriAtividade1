@@ -1,4 +1,6 @@
-public class ListaDinamica {
+
+public class ListaDinamica implements ListaOperacoes
+{
     No inicio;
 
     public ListaDinamica() {
@@ -91,5 +93,24 @@ public class ListaDinamica {
             System.out.println("Elemento " + elemento + " não existe na lista.");
         }
         return false;
+    }
+
+    @Override
+    public int contar()
+    {
+        if(inicioEstaVazio())
+        {
+            return 0;
+        }
+
+        int quantidade = 0;
+        No aux = this.inicio;
+
+        while(aux != null && aux.getConteudo() != null)
+        {
+            quantidade++;
+            aux = aux.getProx();
+        }
+        return quantidade;
     }
 }

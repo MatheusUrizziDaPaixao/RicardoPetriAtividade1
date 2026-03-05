@@ -1,4 +1,6 @@
-public class ListaSimples {
+
+public class ListaSimples implements ListaOperacoes
+{
     String [] lista;
     public ListaSimples(int tamanho) {
         this.lista = new String[tamanho];
@@ -79,4 +81,21 @@ public class ListaSimples {
             System.out.println("O elemento " + elemento + " não existe na lista.");
         }
     }
+
+    @Override
+    public int contar()
+    {
+        int quantidade = 0;
+
+        for (int i = 0; i < this.lista.length; i++)
+        {
+            if (this.lista[i] != null)
+            {
+                quantidade++;
+            }
+        }
+        return quantidade;
+    }
+
+
 }
