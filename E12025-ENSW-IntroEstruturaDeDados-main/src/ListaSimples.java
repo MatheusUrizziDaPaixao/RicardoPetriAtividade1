@@ -96,6 +96,82 @@ public class ListaSimples implements ListaOperacoes
         }
         return quantidade;
     }
+    @Override
+    public String removerPorIndice(int indice)
+    {
+        if (indice < 0 || indice >= this.lista.length || this.lista[indice] == null) {
+            return null;
+        }
+        String removido = this.lista[indice];
+        for (int i = indice; i < this.lista.length - 1; i++) {
+            this.lista[i] = this.lista[i + 1];
+        }
+        this.lista[this.lista.length - 1] = null;
+        return removido;
+    }
 
+    @Override
+    public int ultimoIndiceDe(String elemento)
+    {
+        if (elemento == null) {
+            return -1;
+        }
+        for (int i = this.lista.length - 1; i >= 0; i--) {
+            if (this.lista[i] != null && this.lista[i].equals(elemento)) {
+                return i;
+            }
+        }
+        return -1;
+    }
 
+    @Override
+    public int substituir(String antigo, String novo)
+    {
+        if (antigo == null || novo == null) {
+            return 0;
+        }
+        int cont = 0;
+        for (int i = 0; i < this.lista.length; i++) {
+            if (this.lista[i] != null && this.lista[i].equals(antigo)) {
+                this.lista[i] = novo;
+                cont++;
+            }
+        }
+        return cont;
+    }
+    @Override
+    public int adicionarVarios(String[] elementos) {
+        int adicionados = 0;
+        for (String elem : elementos) {
+            if (!this.estaCheia()) {
+                this.adicionarElemento(elem);
+                adicionados++;
+            } else {
+                System.out.println("Limite da lista atingido ao adicionar múltiplos.");
+                break;
+            }
+        }
+        return adicionados;
+    }
+
+    @Override
+    public boolean inserir(int indice, String elemento) {
+        if (indice < 0 || indice >= lista.length || estaCheia()) {
+            return false;
+        }
+        for (int i = lista.length - 1; i > indice; i--) {
+            lista[i] = lista[i - 1];
+        }
+
+        lista[indice] = elemento;
+        return true;
+    }
+
+    @Override
+    public String obter(int indice) {
+        if (indice < 0 || indice >= lista.length) {
+            return null;
+        }
+        return lista[indice];
+    }
 }
