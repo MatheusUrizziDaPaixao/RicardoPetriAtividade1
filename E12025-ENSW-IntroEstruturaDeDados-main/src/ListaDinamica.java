@@ -114,14 +114,9 @@ public class ListaDinamica implements ListaOperacoes
         return quantidade;
     }
     @Override
-    public String removerPorIndice(int indice)
-    {
-        if (indice < 0) {
-            return null;
-        }
-        if (inicioEstaVazio()) {
-            return null;
-        }
+    public String removerPorIndice(int indice) {
+        if (indice < 0 || inicioEstaVazio()) return null;
+
         if (indice == 0) {
             String valor = this.inicio.getConteudo();
             if (this.inicio.getProx() == null) {
@@ -131,18 +126,19 @@ public class ListaDinamica implements ListaOperacoes
             }
             return valor;
         }
+
         No aux = this.inicio;
         int pos = 0;
-        while(aux != null && aux.getConteudo() != null) {
-            if (pos + 1 == indice && aux.getProx() != null) {
-                String removido = aux.getProx().getConteudo();
-                aux.setProx(aux.getProx().getProx());
-                return removido;
-            }
+        while(aux != null && pos < indice - 1) {
             aux = aux.getProx();
             pos++;
         }
-        return null;
+
+        if (aux == null || aux.getProx() == null) return null;
+
+        String removido = aux.getProx().getConteudo();
+        aux.setProx(aux.getProx().getProx());
+        return removido;
     }
 
     @Override
@@ -165,9 +161,9 @@ public class ListaDinamica implements ListaOperacoes
     }
 
     @Override
-    public int substituir(String antigo, String novo)
-    {
+    public int substituir(String antigo, String novo) {
         if (antigo == null || novo == null || inicioEstaVazio()) {
+            System.out.println("Erro: Não é permitido substituir valores por nulo.");
             return 0;
         }
         int cont = 0;
@@ -178,6 +174,28 @@ public class ListaDinamica implements ListaOperacoes
                 cont++;
             }
             aux = aux.getProx();
+        }
+        return cont;
+    }
+    @Override
+    public int removerTodas(String elemento)
+    {
+        if (elemento == null || inicioEstaVazio()) {
+            return 0;
+        }
+        int cont = 0;
+        while (!inicioEstaVazio() && elemento.equals(this.inicio.getConteudo())) {
+            removerPorIndice(0);
+            cont++;
+        }
+        No aux = this.inicio;
+        while (aux != null && aux.getProx() != null) {
+            if (elemento.equals(aux.getProx().getConteudo())) {
+                aux.setProx(aux.getProx().getProx());
+                cont++;
+            } else {
+                aux = aux.getProx();
+            }
         }
         return cont;
     }
@@ -193,7 +211,8 @@ public class ListaDinamica implements ListaOperacoes
 
     @Override
     public boolean inserir(int indice, String elemento) {
-        if (indice < 0) return false;
+        if (indice < 0 || elemento == null) return false;
+
         if (indice == 0) {
             if (inicioEstaVazio()) {
                 inicio.setConteudo(elemento);
@@ -204,11 +223,13 @@ public class ListaDinamica implements ListaOperacoes
             }
             return true;
         }
+
         No aux = inicio;
-        for (int i = 0; i < indice - 1; i++) {
-            if (aux.getProx() == null) return false;
+        for (int i = 0; i < indice - 1 && aux != null; i++) {
             aux = aux.getProx();
         }
+        if (aux == null) return false;
+
         No novoNo = new No(elemento);
         novoNo.setProx(aux.getProx());
         aux.setProx(novoNo);
@@ -218,7 +239,6 @@ public class ListaDinamica implements ListaOperacoes
     @Override
     public String obter(int indice) {
         if (indice < 0 || inicioEstaVazio()) return null;
-
         No aux = inicio;
         int contador = 0;
 
@@ -231,5 +251,27 @@ public class ListaDinamica implements ListaOperacoes
         }
 
         return null;
+    }
+    @Override
+    public void limpar()
+    {
+        this.inicio = new No(null);
+    }
+
+    @Override
+    public int contarOcorrencias(String elemento)
+    {
+        if (elemento == null || inicioEstaVazio()) {
+            return 0;
+        }
+        int cont = 0;
+        No aux = this.inicio;
+        while (aux != null && aux.getConteudo() != null) {
+            if (elemento.equals(aux.getConteudo())) {
+                cont++;
+            }
+            aux = aux.getProx();
+        }
+        return cont;
     }
 }

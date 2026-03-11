@@ -97,8 +97,7 @@ public class ListaSimples implements ListaOperacoes
         return quantidade;
     }
     @Override
-    public String removerPorIndice(int indice)
-    {
+    public String removerPorIndice(int indice) {
         if (indice < 0 || indice >= this.lista.length || this.lista[indice] == null) {
             return null;
         }
@@ -125,9 +124,9 @@ public class ListaSimples implements ListaOperacoes
     }
 
     @Override
-    public int substituir(String antigo, String novo)
-    {
+    public int substituir(String antigo, String novo) {
         if (antigo == null || novo == null) {
+            System.out.println("Erro: Não é permitido substituir valores por nulo.");
             return 0;
         }
         int cont = 0;
@@ -135,6 +134,21 @@ public class ListaSimples implements ListaOperacoes
             if (this.lista[i] != null && this.lista[i].equals(antigo)) {
                 this.lista[i] = novo;
                 cont++;
+            }
+        }
+        return cont;
+    }
+    @Override
+    public int removerTodas(String elemento) {
+        if (elemento == null || estaVazia()) {
+            return 0;
+        }
+        int cont = 0;
+        for (int i = 0; i < this.lista.length; i++) {
+            if (this.lista[i] != null && this.lista[i].equals(elemento)) {
+                removerPorIndice(i);
+                cont++;
+                i--;
             }
         }
         return cont;
@@ -156,7 +170,7 @@ public class ListaSimples implements ListaOperacoes
 
     @Override
     public boolean inserir(int indice, String elemento) {
-        if (indice < 0 || indice >= lista.length || estaCheia()) {
+        if (indice < 0 || indice >= lista.length || estaCheia() || elemento == null) {
             return false;
         }
         for (int i = lista.length - 1; i > indice; i--) {
@@ -165,7 +179,9 @@ public class ListaSimples implements ListaOperacoes
 
         lista[indice] = elemento;
         return true;
+
     }
+
 
     @Override
     public String obter(int indice) {
@@ -173,5 +189,27 @@ public class ListaSimples implements ListaOperacoes
             return null;
         }
         return lista[indice];
+    }
+    @Override
+    public void limpar()
+    {
+        for (int i = 0; i < this.lista.length; i++) {
+            this.lista[i] = null;
+        }
+    }
+
+    @Override
+    public int contarOcorrencias(String elemento)
+    {
+        if (elemento == null) {
+            return 0;
+        }
+        int cont = 0;
+        for (int i = 0; i < this.lista.length; i++) {
+            if (this.lista[i] != null && this.lista[i].equals(elemento)) {
+                cont++;
+            }
+        }
+        return cont;
     }
 }

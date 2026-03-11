@@ -28,5 +28,13 @@ public class Main {
         System.out.println("Obter elemento no índice 2: " + listaSimples.obter(2));
         System.out.println("Inserir 'Uva' no índice 1: " + listaSimples.inserir(1, "Uva"));
         listaSimples.exibirElementos();
+
+        System.out.println("Quantidade de elementos (contar): " + listaSimples.contar());
+        System.out.println("Remover todas as ocorrencias de 'Arroz': " + listaSimples.removerTodas("Arroz"));
+        listaSimples.limpar();
+        System.out.println("Quantidade após limpar: " + listaSimples.contar());
+        listaSimples.exibirElementos();
+        System.out.println("Teste de estresse (índice negativo): " + listaSimples.obter(-5));
+        System.out.println("Teste de estresse (índice gigante): " + listaSimples.removerPorIndice(999));
     }
 }

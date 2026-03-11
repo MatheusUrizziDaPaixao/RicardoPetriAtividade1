@@ -18,5 +18,10 @@ public class MainListaDinamica {
         System.out.println("Obter elemento no índice 3: " + listaDinamica.obter(3));
         System.out.println("Inserir 'Banana' no índice 0: " + listaDinamica.inserir(0, "Banana"));
         listaDinamica.exibir();
+        System.out.println("Total de nós na lista (contar): " + listaDinamica.contar());
+        System.out.println("Remover todas as ocorrências de 'Feijão': " + listaDinamica.removerTodas("Feijão"));
+        listaDinamica.limpar();
+        System.out.println("Total após limpar: " + listaDinamica.contar());
+        listaDinamica.exibir();
     }
 }
